@@ -9,6 +9,7 @@
     background-position: center center;
     background-size: 22px 22px;
     cursor: pointer;
+    background-color: #000;
 }
 
 @media (max-width: 900px) {
