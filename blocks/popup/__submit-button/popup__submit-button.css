@@ -1,4 +1,4 @@
-.popup__submit-btn {
+.popup__submit-button {
     color: #fff;
     background-color: #000;
     font-size: 18px;
@@ -13,7 +13,7 @@
 }
 
 @media (max-width: 320px) {
-    .popup__submit-btn {
+    .popup__submit-button {
         margin: 45px 22px 25px;
     }
  }
