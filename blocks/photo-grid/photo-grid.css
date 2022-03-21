@@ -1,20 +1,13 @@
 .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: auto;
     max-width: 880px;
     box-sizing: content-box;
-    gap: 20px 17px;
     margin: 0 auto;
     padding-top: 51px;
 }
 
 @media (max-width: 900px) {
     .photo-grid {
-        display: flex;
-        flex-direction: column;
         max-width: 282px;
-        gap: 20px;
         padding-top: 36px;
     }
 }

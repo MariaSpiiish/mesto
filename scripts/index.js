@@ -2,8 +2,18 @@ const popupElement = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = popupElement.querySelector('.popup__close-button');
 
+let formElement = document.querySelector('.form');
+let nameInput = formElement.querySelector('.popup__text_type_name');
+let infoInput = formElement.querySelector('.popup__text_type_info');
+
+let profileTitle = document.querySelector('.profile__title');
+let profileSubtitle = document.querySelector('.profile__subtitle');
+
 function openPopup() {
     popupElement.classList.add('popup_opened');
+    nameInput.value = profileTitle.textContent;
+    infoInput.value = profileSubtitle.textContent;
+    document.addEventListener('keyup', onDocumentKeyUp);
 }
 
 function closePopup() {
@@ -12,7 +22,7 @@ function closePopup() {
 }
 
 function onDocumentKeyUp(event) {
-    if(event.keyCode === 27) {
+    if(event.key === 'Escape') {
         closePopup();
     }
 }
@@ -21,22 +31,10 @@ editButton.addEventListener('click', openPopup);
 
 closeButton.addEventListener('click', closePopup);
 
-document.addEventListener('keyup', function(event) {
-    if (event.keyCode === 27) {
-        closePopup();
-    }
-});
-
-let formElement = document.querySelector('.form');
-let nameInput = formElement.querySelector('.popup__text_type_name');
-let infoInput = formElement.querySelector('.popup__text_type_info');
-
 function formSubmitHandler (evt) {
     evt.preventDefault();
-    const profileTitle = document.querySelector('.profile__title');
-    const profileSubtitle = document.querySelector('.profile__subtitle');
-    profileTitle.textContent = `${nameInput.value}`;
-    profileSubtitle.textContent = `${infoInput.value}`;
+    profileTitle.textContent = nameInput.value;
+    profileSubtitle.textContent = infoInput.value;
     closePopup();
 }
 

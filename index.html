@@ -19,56 +19,58 @@
             <div class="profile__info">
               <div class="profile__text">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
-                <h2 class="profile__subtitle">Исследователь океана</h2>
+                <p class="profile__subtitle">Исследователь океана</p>
               </div>
-              <button class="profile__edit-button opacity"></button>
+              <button type="button" class="profile__edit-button opacity"></button>
             </div>
-            <button class="profile__add-button opacity"></button>
+            <button type="button" class="profile__add-button opacity"></button>
           </section>
 
           <section class="photo-grid">
-            <div class="photo-grid__item">
-              <img src="./images/photo-grid-bangkok.jpg" alt="Бангкок" class="photo-grid__image">
-              <div class="photo-grid__caption">
-                <p class="photo-grid__title">Бангкок</p>
-                <button class="photo-grid__like opacity"></button>
-              </div>
-            </div>
-            <div class="photo-grid__item">
-              <img src="./images/photo-grid-dombai.jpg" alt="Домбай" class="photo-grid__image">
-              <div class="photo-grid__caption">
-                <p class="photo-grid__title">Домбай</p>
-                <button class="photo-grid__like opacity"></button>
-              </div>
-            </div>
-            <div class="photo-grid__item">
-              <img src="./images/photo-grid-elbrus.jpg" alt="Эльбрус" class="photo-grid__image">
-              <div class="photo-grid__caption">
-                <p class="photo-grid__title">Гора Эльбрус</p>
-                <button class="photo-grid__like opacity"></button>
-              </div>
-            </div>
-            <div class="photo-grid__item">
-              <img src="./images/photo-grid-karachaevsk.jpg" alt="Карачаевск" class="photo-grid__image">
-              <div class="photo-grid__caption">
-                <p class="photo-grid__title">Карачаево-Черкесия</p>
-                <button class="photo-grid__like opacity"></button>
-              </div>
-            </div>
-            <div class="photo-grid__item">
-              <img src="./images/photo-grid-phuket.jpg" alt="Пхукет" class="photo-grid__image">
-              <div class="photo-grid__caption">
-                <p class="photo-grid__title">Пхукет</p>
-                <button class="photo-grid__like opacity"></button>
-              </div>
-            </div>
-            <div class="photo-grid__item">
-              <img src="./images/photo-grid-sochi.jpg" alt="Сочи" class="photo-grid__image">
-              <div class="photo-grid__caption">
-                <p class="photo-grid__title">Сочи</p>
-                <button class="photo-grid__like opacity"></button>
-              </div>
-            </div>
+            <ul class="photo-grid__items">
+              <li class="card">
+                <img src="./images/photo-grid-bangkok.jpg" alt="Бангкок" class="card__image">
+                <div class="card__caption">
+                  <h2 class="card__title">Бангкок</h2>
+                  <button type="button" class="card__like opacity"></button>
+                </div>
+              </li>
+              <li class="card">
+                <img src="./images/photo-grid-dombai.jpg" alt="Домбай" class="card__image">
+                <div class="card__caption">
+                  <h2 class="card__title">Домбай</h2>
+                  <button type="button" class="card__like opacity"></button>
+                </div>
+              </li>
+              <li class="card">
+                <img src="./images/photo-grid-elbrus.jpg" alt="Эльбрус" class="card__image">
+                <div class="card__caption">
+                  <h2 class="card__title">Гора Эльбрус</h2>
+                  <button type="button" class="card__like opacity"></button>
+                </div>
+              </li>
+              <li class="card">
+                <img src="./images/photo-grid-karachaevsk.jpg" alt="Карачаевск" class="card__image">
+                <div class="card__caption">
+                  <h2 class="card__title">Карачаево-Черкесия</h2>
+                  <button type="button" class="card__like opacity"></button>
+                </div>
+              </li>
+              <li class="card">
+                <img src="./images/photo-grid-phuket.jpg" alt="Пхукет" class="card__image">
+                <div class="card__caption">
+                  <h2 class="card__title">Пхукет</h2>
+                  <button type="button" class="card__like opacity"></button>
+                </div>
+              </li>
+              <li class="card">
+                <img src="./images/photo-grid-sochi.jpg" alt="Сочи" class="card__image">
+                <div class="card__caption">
+                  <h2 class="card__title">Сочи</h2>
+                  <button type="button" class="card__like opacity"></button>
+                </div>
+              </li>
+            </ul>
           </section>
       </main>
 
@@ -78,16 +80,16 @@
 
       <div class="popup">
         <div class="popup__container">
-          <button class="popup__close-button"></button>
+          <button type="button" class="popup__close-button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="form">
-            <input type="text" placeholder="Жак-Ив Кусто" class="popup__text popup__text_type_name">
-            <input type="text" placeholder="Исследователь океана" class="popup__text popup__text_type_info">
+          <form name="profile-form" class="form">
+            <input name="name" type="text" placeholder="Имя" class="popup__text popup__text_type_name">
+            <input name="job" type="text" placeholder="О себе" class="popup__text popup__text_type_info">
             <button type="submit" class="popup__submit-button opacity">Сохранить</button>
           </form>
         </div>
       </div>
     </div>    
-    <script src="index.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>  
