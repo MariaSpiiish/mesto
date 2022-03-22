@@ -9,3 +9,9 @@
     flex-direction: column;
     justify-content: left;
 }
+
+@media (max-width: 320px) {
+    .popup__container {
+        max-width: 282px;
+    }
+}

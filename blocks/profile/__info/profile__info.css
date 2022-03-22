@@ -8,5 +8,7 @@
     .profile__info {
         margin-left: 0;
         justify-content: center;
+        max-width: 282px;
+        text-align: center;
     }
 }

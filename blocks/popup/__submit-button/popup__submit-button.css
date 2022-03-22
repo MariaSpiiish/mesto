@@ -15,5 +15,6 @@
 @media (max-width: 320px) {
     .popup__submit-button {
         margin: 45px 22px 25px;
+        max-width: 238px;
     }
  }
