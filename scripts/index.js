@@ -13,19 +13,19 @@ function openPopup() {
     popupElement.classList.add('popup_opened');
     nameInput.value = profileTitle.textContent;
     infoInput.value = profileSubtitle.textContent;
-    document.addEventListener('keyup', onDocumentKeyUp);
+    // document.addEventListener('keyup', onDocumentKeyUp);
 }
 
 function closePopup() {
     popupElement.classList.remove('popup_opened');
-    document.removeEventListener('keyup', onDocumentKeyUp);
+    // document.removeEventListener('keyup', onDocumentKeyUp);
 }
 
-function onDocumentKeyUp(event) {
-    if(event.key === 'Escape') {
-        closePopup();
-    }
-}
+// function onDocumentKeyUp(event) {
+//     if(event.key === 'Escape') {
+//         closePopup();
+//     }
+// }
 
 editButton.addEventListener('click', openPopup);
 
