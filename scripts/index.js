@@ -35,7 +35,7 @@ function formSubmitHandler (evt) {
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = infoInput.value;
-    closePopup();
+    closePopupProfile();
 }
 
 formElement.addEventListener('submit', formSubmitHandler); 
@@ -55,3 +55,9 @@ function closePopupPlace() {
 addButton.addEventListener('click', openPopupPlace);
 closeButtonPlace.addEventListener('click', closePopupPlace);
 
+const likeButton = document.querySelector('.card__like');
+
+likeButton.addEventListener('click', function (evt) {
+    const eventTarget = evt.target;
+    eventTarget.classList.toggle('card__like_active');
+}); //работает только на первой карточке
