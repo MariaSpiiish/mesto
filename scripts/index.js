@@ -51,10 +51,60 @@ const formPlaceElement = document.querySelector('.place-form');//выбрать 
 const placeTitleInput = formPlaceElement.querySelector('.popup__text_type_place-title');//выбрать инпуты
 const picLinkInput = formPlaceElement.querySelector('.popup__text_type_pic-link');//выбрать инпуты
 
-//перебор массива
-const elements = initialCards.map(function(obj) {
-  return createCards(obj);
-});
+//назначить переменные для попапа с картинкой
+const popupPictureElement = document.querySelector('.popup_image');
+const closeButtonImage = popupPictureElement.querySelector('.popup__close-button_type_image');
+
+const popupImage = popupPictureElement.querySelector('.popup__image');
+const popupCaption = popupPictureElement.querySelector('.popup__caption');
+
+//функция открытия попапа
+function openPopup(elem) {
+  elem.classList.add('popup_opened');
+}
+
+//функция закрытия попапа
+function closePopup(elem) {
+  elem.classList.remove('popup_opened');
+}
+
+//функция активирования кнопки лайка
+function activateLikeButton(evt) {
+  const eventTarget = evt.target;
+  eventTarget.classList.toggle('card__like_active');
+  eventTarget.classList.toggle('opacity');
+};
+
+//функция открытия попапа с картинкой
+function openPopupImage(obj) {
+  openPopup(popupPictureElement);
+  popupImage.src = obj.link;
+  popupImage.alt = obj.name;
+  popupCaption.textContent = obj.name;
+}
+
+//функция кнопки submit попапа профиля
+function formSubmitProfile (evt) {
+    evt.preventDefault();
+    profileTitle.textContent = nameInput.value;
+    profileSubtitle.textContent = infoInput.value;
+    closePopup(popupProfileElement);
+}
+
+//функция добавления карточки с новым местом 
+function addCard(evt) {
+  evt.preventDefault();
+  
+  const newCard = {};
+  newCard.link = picLinkInput.value;
+  newCard.name = placeTitleInput.value;
+  renderCard(newCard);
+
+  picLinkInput.value = '';
+  placeTitleInput.value = '';
+  
+  closePopup(popupPlaceElement);
+}
 
 //создать карточки и навесить события
 function  createCards(obj) {
@@ -77,104 +127,40 @@ function  createCards(obj) {
   return card;
 }
 
-//добавить элементы на страницу
-cardsContainer.append(...elements);
-
-//активировать кнопку лайка
-function activateLikeButton(evt) {
-  const eventTarget = evt.target;
-  eventTarget.classList.toggle('card__like_active');
-  eventTarget.classList.toggle('opacity');
-};
-
-//назначить переменные для попапа с картинкой
-const popupPictureElement = document.querySelector('.popup_image');
-const closeButtonImage = popupPictureElement.querySelector('.popup__close-button_type_image');
-
-const popupImage = popupPictureElement.querySelector('.popup__image');
-const popupCaption = popupPictureElement.querySelector('.popup__caption');
-
-//открыть попап с картинкой
-function openPopupImage(obj) {
-  popupPictureElement.classList.add('popup_opened');
-  popupImage.src = obj.link;
-  popupImage.alt = obj.name;
-  popupCaption.textContent = obj.name;
-}
-
-//закрыть попап с картинкой
-function closePopupImage() {
-  popupPictureElement.classList.remove('popup_opened');
-}
-
-closeButtonImage.addEventListener('click', closePopupImage);
-
-//функция открытия попапа профиля и добавление значений в поля из информации на странице
-function openPopupProfile() {
-    popupProfileElement.classList.add('popup_opened');
-    nameInput.value = profileTitle.textContent;
-    infoInput.value = profileSubtitle.textContent;
-    // document.addEventListener('keyup', onDocumentKeyUp);
-}
-
-//функция закрытия попапа профиля
-function closePopupProfile() {
-    popupProfileElement.classList.remove('popup_opened');
-    // document.removeEventListener('keyup', onDocumentKeyUp);
-}
-
 //функция закрытия попапа по кнопке escape
 // function onDocumentKeyUp(event) {
 //     if(event.key === 'Escape') {
 //         closePopup();
 //     }
 // }
+// document.addEventListener('keyup', onDocumentKeyUp);
 
 //открыть и закрыть попап профиля
-editButton.addEventListener('click', openPopupProfile);
-
-closeButton.addEventListener('click', closePopupProfile);
-
-//функция кнопки submit попапа профиля
-function formSubmitProfile (evt) {
-    evt.preventDefault();
-    profileTitle.textContent = nameInput.value;
-    profileSubtitle.textContent = infoInput.value;
-    closePopupProfile();
-}
+editButton.addEventListener('click', () => {
+  openPopup(popupProfileElement);
+  nameInput.value = profileTitle.textContent;
+  infoInput.value = profileSubtitle.textContent;
+});
+closeButton.addEventListener('click', () => {closePopup(popupProfileElement)});
 
 //нажать кнопку submit попапа профиля
 formProfileElement.addEventListener('submit', formSubmitProfile); 
 
-//функции открытия и закрытия попапа добавления места
-function openPopupPlace() {
-    popupPlaceElement.classList.add('popup_opened');
-}
-
-function closePopupPlace() {
-    popupPlaceElement.classList.remove('popup_opened');
-}
-
 //открыть и закрыть попап добавления места
-addButton.addEventListener('click', openPopupPlace);
-closeButtonPlace.addEventListener('click', closePopupPlace);
+addButton.addEventListener('click', () => {openPopup(popupPlaceElement)});
+closeButtonPlace.addEventListener('click', () => {closePopup(popupPlaceElement)});
 
-const renderCard = (obj) => {
+//отправить форму добавления нового места
+formPlaceElement.addEventListener('submit', addCard);
+
+//закрыть попап с картинкой
+closeButtonImage.addEventListener('click', () => {closePopup(popupPictureElement)});
+
+//перебор массива
+const elements = initialCards.forEach((obj) =>
+  renderCard(obj)
+);
+
+function renderCard(obj) {
   cardsContainer.prepend(createCards(obj))
 }
-
-const addCard = (evt) => {
-  evt.preventDefault();
-  
-  const newCard = {};
-  newCard.link = picLinkInput.value;
-  newCard.name = placeTitleInput.value;
-  renderCard(newCard);
-
-  picLinkInput.value = '';
-  placeTitleInput.value = '';
-  
-  closePopupPlace();
-}
-
-formPlaceElement.addEventListener('submit', addCard);
