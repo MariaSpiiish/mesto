@@ -25,56 +25,7 @@
           </section>
 
           <section class="photo-grid">
-            <ul class="photo-grid__items">
-              <li class="card">
-                <img src="./images/photo-grid-bangkok.jpg" alt="Бангкок" class="card__image">
-                <button type="button" class="card__trash opacity"></button>
-                <div class="card__caption">
-                  <h2 class="card__title">Бангкок</h2>
-                  <button type="button" class="card__like opacity"></button>
-                </div>
-              </li>
-              <li class="card">
-                <img src="./images/photo-grid-dombai.jpg" alt="Домбай" class="card__image">
-                <button type="button" class="card__trash opacity"></button>
-                <div class="card__caption">
-                  <h2 class="card__title">Домбай</h2>
-                  <button type="button" class="card__like opacity"></button>
-                </div>
-              </li>
-              <li class="card">
-                <img src="./images/photo-grid-elbrus.jpg" alt="Эльбрус" class="card__image">
-                <button type="button" class="card__trash opacity"></button>
-                <div class="card__caption">
-                  <h2 class="card__title">Гора Эльбрус</h2>
-                  <button type="button" class="card__like opacity"></button>
-                </div>
-              </li>
-              <li class="card">
-                <img src="./images/photo-grid-karachaevsk.jpg" alt="Карачаевск" class="card__image">
-                <button type="button" class="card__trash opacity"></button>
-                <div class="card__caption">
-                  <h2 class="card__title">Карачаево-Черкесия</h2>
-                  <button type="button" class="card__like opacity"></button>
-                </div>
-              </li>
-              <li class="card">
-                <img src="./images/photo-grid-phuket.jpg" alt="Пхукет" class="card__image">
-                <button type="button" class="card__trash opacity"></button>
-                <div class="card__caption">
-                  <h2 class="card__title">Пхукет</h2>
-                  <button type="button" class="card__like opacity"></button>
-                </div>
-              </li>
-              <li class="card">
-                <img src="./images/photo-grid-sochi.jpg" alt="Сочи" class="card__image">
-                <button type="button" class="card__trash opacity"></button>
-                <div class="card__caption">
-                  <h2 class="card__title">Сочи</h2>
-                  <button type="button" class="card__like opacity"></button>
-                </div>
-              </li>
-            </ul>
+            <ul class="photo-grid__items"></ul>
           </section>
       </main>
 
@@ -82,7 +33,7 @@
         <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
       </footer>
 
-      <div class="popup">
+      <div class="popup popup_profile">
         <div class="popup__container">
           <button type="button" class="popup__close-button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
@@ -105,7 +56,26 @@
           </form>
         </div>
       </div>
-    </div>    
+
+      <div class="popup popup_image">
+        <div class="popup__image-container">
+          <button type="button" class="popup__close-button popup__close-button_type_image"></button>
+          <img src="" alt="Изображение" class="popup__image">
+          <h2 class="popup__caption"></h2>
+        </div>
+      </div>
+    </div> 
+    
+    <template id="card-template">
+      <li class="card">
+        <img src="" alt="Изображение" class="card__image">
+        <button type="button" class="card__trash opacity"></button>
+        <div class="card__caption">
+          <h2 class="card__title"></h2>
+          <button type="button" class="card__like opacity"></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>  
