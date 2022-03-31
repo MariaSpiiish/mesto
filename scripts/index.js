@@ -77,10 +77,10 @@ function activateLikeButton(evt) {
 
 //функция открытия попапа с картинкой
 function openPopupImage(obj) {
-  openPopup(popupPictureElement);
   popupImage.src = obj.link;
   popupImage.alt = obj.name;
   popupCaption.textContent = obj.name;
+  openPopup(popupPictureElement);
 }
 
 //функция кнопки submit попапа профиля
@@ -137,9 +137,9 @@ function  createCards(obj) {
 
 //открыть и закрыть попап профиля
 editButton.addEventListener('click', () => {
-  openPopup(popupProfileElement);
   nameInput.value = profileTitle.textContent;
   infoInput.value = profileSubtitle.textContent;
+  openPopup(popupProfileElement);
 });
 closeButton.addEventListener('click', () => {closePopup(popupProfileElement)});
 
