@@ -35,8 +35,8 @@ const closeButton = popupProfileElement.querySelector('.popup__close-button');
 
 //выбрать форму для попапа профиля
 const formProfileElement = document.querySelector('.form');
-const nameInput = formProfileElement.querySelector('.popup__text_type_name');
-const infoInput = formProfileElement.querySelector('.popup__text_type_info');
+const nameInput = formProfileElement.querySelector('.popup__input_type_name');
+const infoInput = formProfileElement.querySelector('.popup__input_type_info');
 
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
@@ -48,8 +48,8 @@ const closeButtonPlace = document.querySelector('.popup__close-button_type_place
 
 //переменные для формы добавления нового места
 const formPlaceElement = document.querySelector('.place-form');//выбрать форму
-const placeTitleInput = formPlaceElement.querySelector('.popup__text_type_place-title');//выбрать инпуты
-const picLinkInput = formPlaceElement.querySelector('.popup__text_type_pic-link');//выбрать инпуты
+const placeTitleInput = formPlaceElement.querySelector('.popup__input_type_place-title');//выбрать инпуты
+const picLinkInput = formPlaceElement.querySelector('.popup__input_type_pic-link');//выбрать инпуты
 
 //назначить переменные для попапа с картинкой
 const popupPictureElement = document.querySelector('.popup_image');
@@ -61,11 +61,28 @@ const popupCaption = popupPictureElement.querySelector('.popup__caption');
 //функция открытия попапа
 function openPopup(elem) {
   elem.classList.add('popup_opened');
+  document.addEventListener('keyup', onDocumentKeyUp);
 }
 
 //функция закрытия попапа
 function closePopup(elem) {
   elem.classList.remove('popup_opened');
+  document.removeEventListener('keyup', onDocumentKeyUp);
+}
+
+// функция закрытия попапа по кнопке escape
+function onDocumentKeyUp(event) {
+  if(event.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened'); 
+    closePopup(popupOpened);
+  }
+}
+
+function onOverlayClick(event) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (event.target === event.currentTarget) {
+    closePopup(popupOpened);
+  }
 }
 
 //функция активирования кнопки лайка
@@ -127,14 +144,6 @@ function  createCards(obj) {
   return card;
 }
 
-//функция закрытия попапа по кнопке escape
-// function onDocumentKeyUp(event) {
-//     if(event.key === 'Escape') {
-//         closePopup();
-//     }
-// }
-// document.addEventListener('keyup', onDocumentKeyUp);
-
 //открыть и закрыть попап профиля
 editButton.addEventListener('click', () => {
   nameInput.value = profileTitle.textContent;
@@ -155,6 +164,8 @@ formPlaceElement.addEventListener('submit', addCard);
 
 //закрыть попап с картинкой
 closeButtonImage.addEventListener('click', () => {closePopup(popupPictureElement)});
+
+popupPictureElement.addEventListener('click', onOverlayClick);
 
 //перебор массива
 const elements = initialCards.forEach((obj) =>

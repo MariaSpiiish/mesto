@@ -1,4 +1,4 @@
-.popup__text {
+.popup__input {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
@@ -10,14 +10,14 @@
     width: 358px;
 }
 
-.popup__text::placeholder {
+.popup__input::placeholder {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
     color: #000;
 }
 
-.popup__text::-ms-input-placeholder {
+.popup__input::-ms-input-placeholder {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
@@ -25,7 +25,7 @@
 }
 
 @media (max-width: 320px) {
-    .popup__text {
+    .popup__input {
         margin: 75px 22px 0;
         max-width: 238px;
     }
