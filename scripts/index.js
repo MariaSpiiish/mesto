@@ -165,9 +165,9 @@ formPlaceElement.addEventListener('submit', addCard);
 //закрыть попап с картинкой
 closeButtonImage.addEventListener('click', () => {closePopup(popupPictureElement)});
 
-popupPictureElement.addEventListener('click', onOverlayClick);
-popupProfileElement.addEventListener('click', onOverlayClick);
-popupPlaceElement.addEventListener('click', onOverlayClick);
+popupPictureElement.addEventListener('mousedown', onOverlayClick);
+popupProfileElement.addEventListener('mousedown', onOverlayClick);
+popupPlaceElement.addEventListener('mousedown', onOverlayClick);
 
 //перебор массива
 const elements = initialCards.forEach((obj) =>
