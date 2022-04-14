@@ -100,6 +100,7 @@ function addCard(evt) {
   newCard.name = placeTitleInput.value;
   renderCard(newCard);
 
+  disableButton(formPlaceElement.querySelector('.popup__submit-button_type_place'), selectorList);
   formPlaceElement.reset();
   
   closePopup(popupPlaceElement);
