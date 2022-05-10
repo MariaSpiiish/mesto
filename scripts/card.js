@@ -1,23 +1,22 @@
 // import {initialCards} from './cards.js'
-import {popupImage, popupPictureElement, closeButtonImage, popupCaption} from './index.js'
-import {openPopup, closePopup} from './index.js'
+import {popupImage, popupPictureElement, imageCloseButton, popupCaption} from './index.js'
+import {openPopup} from './index.js'
 
 export class Card {
     //данные конструктора
-    constructor(image, title) {
-        this._image = image;
-        this._title = title;
+    constructor(data, cardSelector) {
+        this._link = data.link;
+        this._name = data.name;
+        this._cardSelector = cardSelector;
     }
 
-    //забираем разметку из html и клонируем элемент 
+    //забираем разметку из html и клонируем элемент, возвращаем DOM-элемент
     _getTemplate() {
-        const cardElement = document
-            .querySelector('.card-template')
+        return document
+            .querySelector(this._cardSelector)
             .content
             .querySelector('.card')
-            .cloneNode(true);
-        //возвращаем DOM-элемент
-        return cardElement;    
+            .cloneNode(true);  
     }
     
     //добавляем данные в разметку
@@ -27,23 +26,18 @@ export class Card {
         this._setEventListeners();
 
         //добавляем данные
-        this._element.querySelector('.card__image').src = this._image;
-        this._element.querySelector('.card__title').textContent = this._title;
+        this._element.querySelector('.card__image').src = this._link;
+        this._element.querySelector('.card__title').textContent = this._name;
 
         //вернём элемент
         return this._element;
     }
 
     _handleOpenPopup() {
-        popupImage.src = this._image;
-        popupImage.alt = this._title;
-        popupCaption.textContent = this._title;
+        popupImage.src = this._link;
+        popupImage.alt = this._name;
+        popupCaption.textContent = this._name;
         openPopup(popupPictureElement);
-    }
-
-    _handleClosePopup() {
-        popupImage.src = '';
-        closePopup(popupPictureElement);
     }
 
     _activateLikeButton() {
@@ -55,9 +49,6 @@ export class Card {
     _setEventListeners() {
         this._element.querySelector('.card__image').addEventListener('click', () => {
           this._handleOpenPopup();
-        });
-        closeButtonImage.addEventListener('click', () => {
-          this._handleClosePopup();
         });
         this._element.querySelector('.card__like').addEventListener('click', () => {
             this._activateLikeButton();

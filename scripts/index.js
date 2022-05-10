@@ -14,12 +14,10 @@ const selectorList = {
 //выбрать контейнер для карточек
 const cardsContainer = document.querySelector('.photo-grid__items');
 
-// const template = document.querySelector('#card-template');
-
 //выбрать кнопки для попапа профиля
-const popupProfileElement = document.querySelector('.popup_profile');
-const editButton = document.querySelector('.profile__edit-button');
-const closeButton = popupProfileElement.querySelector('.popup__close-button');
+const popupProfileElement = document.querySelector('.popup_type_profile-edit');
+const buttonEditProfile = document.querySelector('.profile__edit-button');
+const profileCloseButton = popupProfileElement.querySelector('.popup__close-button');
 
 //выбрать форму для попапа профиля
 const formProfileElement = document.querySelector('.form');
@@ -30,9 +28,9 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 //выбрать кнопки открытия и закрытия попапа добавления места
-const popupPlaceElement = document.querySelector('.popup_place');
-const addButton = document.querySelector('.profile__add-button');
-const closeButtonPlace = document.querySelector('.popup__close-button_type_place');
+const popupPlaceElement = document.querySelector('.popup_type_place-edit');
+const placeAddButton = document.querySelector('.profile__add-button');
+const placeCloseButton = document.querySelector('.popup__close-button_type_place');
 
 //переменные для формы добавления нового места
 const formPlaceElement = document.querySelector('.place-form');//выбрать форму
@@ -40,8 +38,8 @@ const placeTitleInput = formPlaceElement.querySelector('.popup__input_type_place
 const picLinkInput = formPlaceElement.querySelector('.popup__input_type_pic-link');//выбрать инпуты
 
 //назначить переменные для попапа с картинкой
-export const popupPictureElement = document.querySelector('.popup_image');
-export const closeButtonImage = popupPictureElement.querySelector('.popup__close-button_type_image');
+export const popupPictureElement = document.querySelector('.popup_type_image-edit');
+export const imageCloseButton = popupPictureElement.querySelector('.popup__close-button_type_image');
 
 export const popupImage = popupPictureElement.querySelector('.popup__image');
 export const popupCaption = popupPictureElement.querySelector('.popup__caption');
@@ -72,11 +70,13 @@ function closeByOverlay(event) {
   }
 }
 
-initialCards.forEach((item) => {
-  const card = new Card(item.link, item.name);
-  const cardElement = card.generateCard();
+const renderElements = (cardData) => {
+    const card = new Card(cardData, '.card-template');
+    return card.generateCard();
+};
 
-  cardsContainer.append(cardElement);
+initialCards.forEach((item) => {
+  cardsContainer.append(renderElements(item));
 });
 
 const formValidatorProfile = new FormValidator(selectorList, formProfileElement);
@@ -97,12 +97,17 @@ function handleProfileFormSubmit (evt) {
 function addCard(evt) {
   evt.preventDefault();
   
-  // newCard.link = picLinkInput.value;
-  // newCard.name = placeTitleInput.value;
-  const newCard = new Card(picLinkInput.value, placeTitleInput.value);
-  const cardElement = newCard.generateCard();
+  const newCard = [
+    {
+      name: placeTitleInput.value,
+      link: picLinkInput.value,
+    }
+  ]
 
-  cardsContainer.prepend(cardElement);
+  newCard.forEach((item) => { 
+    cardsContainer.prepend(renderElements(item));
+  });
+
   formValidatorPlace.disableButton();
   formPlaceElement.reset();
   
@@ -116,27 +121,30 @@ function openPopupProfile() {
 }
 
 //открыть и закрыть попап профиля
-editButton.addEventListener('click', () => {
+buttonEditProfile.addEventListener('click', () => {
   openPopupProfile();
   formValidatorProfile.disableButton();
 });
-closeButton.addEventListener('click', () => closePopup(popupProfileElement));
+profileCloseButton.addEventListener('click', () => closePopup(popupProfileElement));
 
 //нажать кнопку submit попапа профиля
 formProfileElement.addEventListener('submit', handleProfileFormSubmit); 
 
 //открыть и закрыть попап добавления места
-addButton.addEventListener('click', () => {
+placeAddButton.addEventListener('click', () => {
   formValidatorPlace.disableButton();
   openPopup(popupPlaceElement);
 });
-closeButtonPlace.addEventListener('click', () => closePopup(popupPlaceElement));
+placeCloseButton.addEventListener('click', () => closePopup(popupPlaceElement));
 
 //отправить форму добавления нового места
 formPlaceElement.addEventListener('submit', addCard);
 
-//закрыть попап с картинкой
-// closeButtonImage.addEventListener('click', () => closePopup(popupPictureElement));
+//закрыть попап места
+imageCloseButton.addEventListener('click', () => {
+  popupImage.src = '';
+  closePopup(popupPictureElement);
+});
 
 popupPictureElement.addEventListener('mousedown', closeByOverlay);
 popupProfileElement.addEventListener('mousedown', closeByOverlay);

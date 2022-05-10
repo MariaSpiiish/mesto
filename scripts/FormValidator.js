@@ -67,12 +67,12 @@ export class FormValidator {
 
     //установить обработчик события инпут на все поля ввода
     _setEventListeners = () => {
-        this._toggleButtonState(this._inputList, this._buttonElement);
+        this._toggleButtonState();
 
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
             this._isValid(inputElement);
-            this._toggleButtonState(this._inputList, this._buttonElement);
+            this._toggleButtonState();
             });
         });
     }; 
