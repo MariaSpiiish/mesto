@@ -1,12 +1,13 @@
 // import {initialCards} from './cards.js'
-import {popupImage, popupPictureElement, imageCloseButton, popupCaption} from './index.js'
-import {openPopup} from './index.js'
+// import {popupImage, popupPictureElement, imageCloseButton, popupCaption} from '../pages/index.js'
+// import {openPopup} from '../pages/index.js'
 
-export class Card {
+export default class Card {
     //данные конструктора
-    constructor(data, cardSelector) {
+    constructor({ data, handleCardClick }, cardSelector) {
         this._link = data.link;
         this._name = data.name;
+        this._handleCardClick = handleCardClick;
         this._cardSelector = cardSelector;
     }
 
@@ -33,12 +34,12 @@ export class Card {
         return this._element;
     }
 
-    _handleOpenPopup() {
-        popupImage.src = this._link;
-        popupImage.alt = this._name;
-        popupCaption.textContent = this._name;
-        openPopup(popupPictureElement);
-    }
+    // _handleOpenPopup() {
+    //     popupImage.src = this._link;
+    //     popupImage.alt = this._name;
+    //     popupCaption.textContent = this._name;
+    //     openPopup(popupPictureElement);
+    // }
 
     _activateLikeButton() {
         const like = this._element.querySelector('.card__like');
@@ -48,7 +49,7 @@ export class Card {
 
     _setEventListeners() {
         this._element.querySelector('.card__image').addEventListener('click', () => {
-          this._handleOpenPopup();
+            this._handleCardClick(this._name, this._link);
         });
         this._element.querySelector('.card__like').addEventListener('click', () => {
             this._activateLikeButton();
