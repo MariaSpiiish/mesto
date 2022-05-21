@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="pages/index.css">
+    <!-- <link rel="stylesheet" href="pages/index.css"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
   </head>
@@ -10,12 +10,12 @@
   <body class="theme-dark">
     <div class="page">
       <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Логотип MestoRussia">
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип MestoRussia">
       </header>
 
       <main class="content">
           <section class="profile">
-            <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
+            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
               <button type="button" class="profile__edit-button opacity"></button>
@@ -114,14 +114,13 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./utils/constants.js"></script>
-    <script type="module" src="./pages/index.js"></script>
-    
+    <!-- <script type="module" src="./utils/constants.js"></script>
+    <script type="module" src="./index.js"></script>
     <script type="module" src="./components/Card.js"></script>
     <script type="module" src="./components/Section.js"></script>
     <script type="module" src="./components/PopupWithImage.js"></script>
     <script type="module" src="./components/Popup.js"></script>
     <script type="module" src="./components/UserInfo.js"></script>
-    <script type="module" src="./components/PopupWithForm.js"></script>
+    <script type="module" src="./components/PopupWithForm.js"></script> -->
   </body>
 </html>  
