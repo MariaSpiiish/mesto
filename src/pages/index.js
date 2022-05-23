@@ -1,10 +1,10 @@
-import "./pages/index.css"
-import Card from "./components/Card.js"
-import FormValidator from "./components/FormValidator.js"
-import PopupWithForm from "./components/PopupWithForm.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import Section from "./components/Section.js";
-import UserInfo from "./components/UserInfo.js";
+import "./index.css"
+import Card from "../components/Card.js"
+import FormValidator from "../components/FormValidator.js"
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
 
 import { 
     initialCards,
@@ -16,7 +16,11 @@ import {
     popupPictureElement,
     popupPlaceElement,
     popupProfileElement,
-} from "./utils/constants.js";
+    cardTemplate,
+    cardsContainer,
+    profileName,
+    profileInfo
+} from "../utils/constants.js";
 
 const imagePopup = new PopupWithImage(popupPictureElement);
 imagePopup.setEventListeners();
@@ -30,7 +34,7 @@ const addNewCard = (data) => {
         
       }
     },
-    '.card-template'
+    cardTemplate
   );
  
   return card.generateCard();
@@ -44,7 +48,7 @@ const defaultCards = new Section ({
       defaultCards.addItem(cards);
     }                                  
   }, 
-  '.photo-grid__items'
+  cardsContainer
 );
 
 defaultCards.renderItems();
@@ -63,8 +67,8 @@ const placeForm = new PopupWithForm({
 placeForm.setEventListeners();
 
 const userInfo = new UserInfo({
-  nameSelector: '.profile__title',
-  infoSelector: '.profile__subtitle'
+  nameSelector: profileName,
+  infoSelector: profileInfo
 })
 
 //подставить значение со стр в попап и открыть его
@@ -101,9 +105,3 @@ formValidatorProfile.enableValidation();
 
 const formValidatorPlace = new FormValidator(selectorList, formPlaceElement);
 formValidatorPlace.enableValidation();
-
-
-
-
-
-

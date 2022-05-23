@@ -1,7 +1,3 @@
-// import {initialCards} from './cards.js'
-// import {popupImage, popupPictureElement, imageCloseButton, popupCaption} from '../pages/index.js'
-// import {openPopup} from '../pages/index.js'
-
 export default class Card {
     //данные конструктора
     constructor({ data, handleCardClick }, cardSelector) {
@@ -28,23 +24,16 @@ export default class Card {
 
         //добавляем данные
         this._element.querySelector('.card__image').src = this._link;
+        this._element.querySelector('.card__image').alt = this._name;
         this._element.querySelector('.card__title').textContent = this._name;
 
         //вернём элемент
         return this._element;
     }
 
-    // _handleOpenPopup() {
-    //     popupImage.src = this._link;
-    //     popupImage.alt = this._name;
-    //     popupCaption.textContent = this._name;
-    //     openPopup(popupPictureElement);
-    // }
-
     _activateLikeButton() {
         const like = this._element.querySelector('.card__like');
         like.classList.toggle('card__like_active');
-        like.classList.toggle('opacity');
     };
 
     _setEventListeners() {

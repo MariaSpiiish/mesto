@@ -9,14 +9,13 @@ export default class UserInfo {
 
     //вернуть объект с данными пользователя
     getUserInfo() {
-        const userInfo = {};
         this._nameInput.value = this._name.textContent;
         this._infoInput.value = this._info.textContent;
 
-        userInfo.name = this._nameInput.value;
-        userInfo.info = this._infoInput.value;
-
-        return userInfo;
+        return {
+            name: this._nameInput.value,
+            info: this._infoInput.value
+        };
     }
 
     //принять новые данные пользователя и добавить на страницу

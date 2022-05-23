@@ -34,7 +34,10 @@ export const selectorList = {
   errorClass: 'popup__input-error_active',
 }
 
-
+export const cardTemplate = '.card-template';
+export const cardsContainer = '.photo-grid__items';
+export const profileName = '.profile__title';
+export const profileInfo = '.profile__subtitle';
 export const imageCloseButton = document.querySelector('.popup__close-button_type_image');
 export const placeAddButton = document.querySelector('.profile__add-button');
 export const placeCloseButton = document.querySelector('.popup__close-button_type_place');
