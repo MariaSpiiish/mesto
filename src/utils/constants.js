@@ -51,5 +51,8 @@ export const popupProfileElement = document.querySelector('.popup_type_profile-e
 export const formProfileElement = document.querySelector('.form');
 export const formPlaceElement = document.querySelector('.place-form');
 
+export const popupProfileName = document.querySelector('.popup__input_type_name');
+export const popupProfileInfo = document.querySelector('.popup__input_type_info');
+
 
   

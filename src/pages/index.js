@@ -19,7 +19,9 @@ import {
     cardTemplate,
     cardsContainer,
     profileName,
-    profileInfo
+    profileInfo,
+    popupProfileName,
+    popupProfileInfo
 } from "../utils/constants.js";
 
 const imagePopup = new PopupWithImage(popupPictureElement);
@@ -74,6 +76,8 @@ const userInfo = new UserInfo({
 //подставить значение со стр в попап и открыть его
 function openPopupProfile() {
   const user = userInfo.getUserInfo();
+  popupProfileName.value = user.name;
+  popupProfileInfo.value = user.info;
   profileForm.open();
 }
 
