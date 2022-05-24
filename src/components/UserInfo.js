@@ -9,9 +9,6 @@ export default class UserInfo {
 
     //вернуть объект с данными пользователя
     getUserInfo() {
-        // this._nameInput.value = this._name.textContent;
-        // this._infoInput.value = this._name.textContent;
-
         return {
             name: this._name.textContent,
             info: this._info.textContent
