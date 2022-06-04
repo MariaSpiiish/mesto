@@ -40,5 +40,3 @@ export default class PopupWithForm extends Popup {
         this._element.reset();
     }
 }
-
-//Для каждого попапа создавайте свой экземпляр класса PopupWithForm. 

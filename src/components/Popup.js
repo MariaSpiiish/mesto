@@ -20,6 +20,22 @@ export default class Popup {
         }
     }
 
+    renderLoadingCard(isLoading) {
+        if(isLoading) {
+          this._popup.querySelector('.popup__submit-button').textContent = 'Сохранить...'
+        } else {
+          this._popup.querySelector('.popup__submit-button').textContent = 'Создать'
+        }
+    }
+
+    renderLoadingProfile(isLoading) {
+        if(isLoading) {
+          this._popup.querySelector('.popup__submit-button').textContent = 'Сохранить...'
+        } else {
+          this._popup.querySelector('.popup__submit-button').textContent = 'Сохранить'
+        }
+    }
+
     setEventListeners() {
         const closeButton = this._popup.querySelector('.popup__close-button');
         closeButton.addEventListener('click', () => this.close());
