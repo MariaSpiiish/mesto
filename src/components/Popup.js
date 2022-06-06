@@ -16,23 +16,7 @@ export default class Popup {
 
     _handleEscClose(event) {
         if(event.key === 'Escape') {
-            this.close(document.querySelector('.popup_opened'));
-        }
-    }
-
-    renderLoadingCard(isLoading) {
-        if(isLoading) {
-          this._popup.querySelector('.popup__submit-button').textContent = 'Сохранить...'
-        } else {
-          this._popup.querySelector('.popup__submit-button').textContent = 'Создать'
-        }
-    }
-
-    renderLoadingProfile(isLoading) {
-        if(isLoading) {
-          this._popup.querySelector('.popup__submit-button').textContent = 'Сохранить...'
-        } else {
-          this._popup.querySelector('.popup__submit-button').textContent = 'Сохранить'
+            this.close();
         }
     }
 
@@ -42,7 +26,7 @@ export default class Popup {
 
         this._popup.addEventListener('mousedown', (event) => {
             if (event.target === event.currentTarget) {
-              this.close(document.querySelector('.popup_opened'));
+              this.close();
             }
         });
     }

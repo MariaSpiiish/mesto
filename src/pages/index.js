@@ -44,28 +44,18 @@ const userInfo = new UserInfo({
   avatarSelector: profileAvatar,
 })
 
-//получить инфу о пользователе, вставить в разметку
-let userId;
-const getuser = api.getUserInfo()
-  .then((data) => {
-    return data;
-  })
-  .catch((err) => {
-    console.log(`Ошибка 1: ${err}`);
-  });
-
 const avatarForm = new PopupWithForm({
   handleFormSubmit: (data) => {
-    avatarForm.renderLoadingProfile(true);
+    avatarForm.renderLoading(true, 'Сохранить...');
     api.patchUserAvatar(data) //обращаемся к api изменить аватар пользователя
       .then((data) => {
         userInfo.setUserInfo(data);
         avatarForm.close();
       })
       .catch((err) => {
-        console.log(`Ошибка 2: ${err}`);
+        console.log(`Ошибка 1: ${err}`);
       })
-      .finally(() => avatarForm.renderLoadingProfile(false));
+      .finally(() => avatarForm.renderLoading(false));
   }},
   popupAvatarElement
 );
@@ -73,16 +63,17 @@ avatarForm.setEventListeners();
 
 const profileForm = new PopupWithForm({
   handleFormSubmit: (data) => {
-    profileForm.renderLoadingProfile(true);
+    profileForm.renderLoading(true, 'Сохранить...');
+    formValidatorProfile.disableButton();
     api.patchUserInfo(data) //обращаемся к api изменить данные о пользователе
       .then((data) => {
         userInfo.setUserInfo(data);
         profileForm.close();
       })
       .catch((err) => {
-        console.log(`Ошибка 3: ${err}`);
+        console.log(`Ошибка 2: ${err}`);
       })
-      .finally(() => profileForm.renderLoadingProfile(false));
+      .finally(() => profileForm.renderLoading(false));
     }
   },
   popupProfileElement
@@ -92,8 +83,7 @@ profileForm.setEventListeners();
 //подставить значение со стр в попап и открыть его
 function openPopupProfile() {
   const user = userInfo.getUserInfo();
-  popupProfileName.value = user.name;
-  popupProfileInfo.value = user.about;
+  profileForm.setInputValues(user);
   profileForm.open();
 }
 
@@ -108,7 +98,7 @@ const deleteCardPopup = new PopupWithSubmit({
           deleteCardPopup.close();
         })
         .catch((err) => {
-          console.log(`Ошибка 4: ${err}`);
+          console.log(`Ошибка 3: ${err}`);
         });
     }
   },
@@ -125,26 +115,29 @@ const addNewCard = (data) => {
       deleteCardClick: (element, id) => {
         deleteCardPopup.open(element, id);
       },
-      likeCardClick: (element, id) => {
-        api.putLike(element, id)//обращаемся к api
-          .then((obj) => {
-            card._likes = obj.likes;
-            element.querySelector('.card__like-count').textContent = obj.likes.length;
-          })
-          .catch((err) => {
-            console.log(`Ошибка 5: ${err}`);
-          });
+      handleLikeClick: (card) => {
+        if (!card.findId(card.likes)) {
+          api.putLike(card, card.cardId)//обращаемся к api
+            .then((obj) => {
+              card.updateLikes(obj.likes);
+              card.likeButton.classList.add('card__like_active');
+              card.likes = obj.likes;
+            })
+            .catch((err) => {
+              console.log(`Ошибка в постановке лайка: ${err}`);
+            });
+        } else {
+          api.deleteLike(card, card.cardId)//обращаемся к api
+            .then((obj) => {
+              card.updateLikes(obj.likes);
+              card.likeButton.classList.remove('card__like_active');
+              card.likes = obj.likes;
+            })
+            .catch((err) => {
+              console.log(`Ошибка в снятии лайка: ${err}`);
+            });
+        }
       },
-      dislikeCardClick: (element, id) => {
-        api.deleteLike(element, id)//обращаемся к api
-          .then((obj) => {
-            card._likes = obj.likes;
-            element.querySelector('.card__like-count').textContent = obj.likes.length;
-          })
-          .catch((err) => {
-            console.log(`Ошибка 6: ${err}`);
-          });
-      }
     },
     cardTemplate,
     userId
@@ -160,34 +153,32 @@ const section = new Section ({
   }, cardsContainer
 );
 
-const getcards = api.getCards()
-  .then((data) => {
-    return data;
+let userId;
+
+Promise.all([api.getCards(), api.getUserInfo()])
+  .then(([cards, userData]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData);
+    section.renderItems(cards);
   })
   .catch((err) => {
-    console.log(`Ошибка 7: ${err}`);
+    console.log(`Ошибка 6: ${err}`);
   });
-
-Promise.all([getcards, getuser])
-  .then(([res1, res2]) => {
-    userId = res2._id;
-    section.renderItems(res1);
-    userInfo.setUserInfo(res2);
-  })
 
 const placeForm = new PopupWithForm({
   handleFormSubmit: (data) => {
-    placeForm.renderLoadingCard(true)
+    placeForm.renderLoading(true, 'Сохранить...')
+    formValidatorPlace.disableButton()
     api.postNewCard(data)
       .then((data) => {
         const newCard = addNewCard(data);
-        document.querySelector(cardsContainer).prepend(newCard);
+        section.addItem(newCard);
         placeForm.close();
       })
       .catch((err) => {
-        console.log(`Ошибка 8: ${err}`);
+        console.log(`Ошибка 7: ${err}`);
       })
-      .finally(() => placeForm.renderLoadingCard(false));
+      .finally(() => placeForm.renderLoading(false, 'Создать'));
     }
   },
   popupPlaceElement
@@ -207,18 +198,22 @@ formValidatorAvatar.enableValidation();
 
 //открыть попап редактирования профиля
 buttonEditProfile.addEventListener('click', () => {
-  openPopupProfile();
   formValidatorProfile.disableButton();
+  formValidatorProfile.resetValidation();
+  openPopupProfile();
+
 })
 
 //открыть попап добавления места
 placeAddButton.addEventListener('click', () => {
   formValidatorPlace.disableButton();
+  formValidatorPlace.resetValidation();
   placeForm.open();
 });
 
 //открыть попап редактирования аватар
 avatarEditButton.addEventListener('click', () => {
   formValidatorAvatar.disableButton();
+  formValidatorAvatar.resetValidation();
   avatarForm.open();
 });

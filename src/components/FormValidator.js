@@ -50,20 +50,28 @@ export default class FormValidator {
     _enableButton = () => {
         this._buttonElement.disabled = false;
         this._buttonElement.classList.remove(this._inactiveButtonClass); 
-    }
+    };
 
     disableButton = () => {
         this._buttonElement.disabled = true;
         this._buttonElement.classList.add(this._inactiveButtonClass); 
     }
 
+    resetValidation = () => {
+        this._toggleButtonState();
+
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
+    }
+
     _toggleButtonState = () => { 
         if (this._hasInvalidInput(this._inputList)) { 
-            this.disableButton(this._buttonElement);
+            this.disableButton();
         } else { 
-            this._enableButton(this._buttonElement);
+            this._enableButton();
         } 
-    }; 
+    };
 
     //установить обработчик события инпут на все поля ввода
     _setEventListeners = () => {

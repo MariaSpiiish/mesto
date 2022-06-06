@@ -1,21 +1,21 @@
-const handleResponse = (res) => {
-  if(res.ok) {
-    return res.json();
-  }
-  return Promise.reject(res.status);
-}
-
 export default class Api {
   constructor(options) {
       this.url = options.url;
       this.headers = options.headers;
   }
 
+  _handleResponse(res) {
+    if(res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  }
+
   getUserInfo() {
       return fetch(`${this.url}/users/me`, {
           headers: this.headers
         })
-          .then(handleResponse)
+          .then(this._handleResponse)
   }
 
   patchUserInfo(data) {
@@ -24,7 +24,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-    .then(handleResponse)
+    .then(this._handleResponse)
   }
 
   patchUserAvatar(avatar) {
@@ -34,14 +34,14 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(avatar)
     })
-    .then(handleResponse)
+    .then(this._handleResponse)
   }
 
   getCards() {
       return fetch(`${this.url}/cards`, {
         headers: this.headers
       })
-        .then(handleResponse)
+        .then(this._handleResponse)
   }
 
   postNewCard(data) {
@@ -50,7 +50,7 @@ export default class Api {
         headers: this.headers,
         body: JSON.stringify(data)
       })
-      .then(handleResponse)
+      .then(this._handleResponse)
   }
 
   deleteCard(data, id) {
@@ -59,7 +59,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-    .then(handleResponse)
+    .then(this._handleResponse)
   }
 
   putLike(data, id) {
@@ -68,7 +68,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-    .then(handleResponse)
+    .then(this._handleResponse)
   }
 
   deleteLike(data, id) {
@@ -77,8 +77,6 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-    .then(handleResponse)
+    .then(this._handleResponse)
   }
-
-
 }
