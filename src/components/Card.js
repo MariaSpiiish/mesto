@@ -65,8 +65,14 @@ export default class Card {
         return exist;
     }
 
-    updateLikes(obj) {
+    addLike(obj) {
+        this._likeCount.textContent = obj.length;
+        this.likeButton.classList.add('card__like_active');
+    }
+
+    removeLike(obj) {
        this._likeCount.textContent = obj.length;
+       this.likeButton.classList.remove('card__like_active');
     }
 
     _setEventListeners() {
